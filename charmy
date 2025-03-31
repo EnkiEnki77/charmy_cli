@@ -10,6 +10,8 @@ setup_project(){
                         then
                         echo "Initializing project: $2"
                         mkdir ~/workspace/PycharmProjects/$2
+                        cd ~/workspace/PycharmProjects/$2 || exit
+                        touch main.py
                   else
                         echo "charmy create command requires a name for the project to create"
                   fi

@@ -37,6 +37,11 @@ EOF
                         git commit -m 'first commit'
                         git branch -M main
                         git push -u origin main
+                        read -p "Open the project? (y/n): " confirm
+                        if [ "$confirm" == "y" ]
+                              then
+                              echo "$confirm"
+                        fi
                   else
                         echo "charmy create command requires a name for the project to create"
                   fi

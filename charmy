@@ -11,6 +11,7 @@ setup_project(){
                         echo "Initializing project: $2"
                         mkdir ~/workspace/PycharmProjects/$2
                         cd ~/workspace/PycharmProjects/$2 || exit
+                        python3 -m venv .venv
                         touch main.py
                         cat <<EOF > main.py
 def main():
@@ -20,6 +21,15 @@ def main():
 if __name__ == "__main__":
         main()
 EOF
+                        touch README.md
+                        touch .gitignore
+                        cat <<EOF > .gitignore
+.venv
+.idea
+.env
+__pycache__
+EOF
+
 
 
                   else

@@ -11,7 +11,8 @@ setup_project(){
                         echo "Initializing project: $2"
 #                        mkdir ~/workspace/PycharmProjects/
                         cd ~/workspace/PycharmProjects/ || exit
-                        printf "\n%s\n\n\ny\ny\npython\nn\ny\ny\n" "$2" | gh repo create "$2" --public
+                        REMOTE=$(printf "\n%s\n\n\ny\ny\npython\nn\ny\ny\n" "$2" | gh repo create "$2" --public)
+                        git clone "$REMOTE"
 #                        python3 -m venv .venv
 #                        touch main.py
 #                        cat <<EOF > main.py

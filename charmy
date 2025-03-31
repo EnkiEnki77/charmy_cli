@@ -1,7 +1,6 @@
 #!/bin/bash
 
 setup_project(){
-      echo $1 $2
 
       if [ "$1" ]
             then
@@ -10,6 +9,7 @@ setup_project(){
                   if [ "$2" ]
                         then
                         echo "Initializing project: $2"
+                        mkdir ~/workspace/PycharmProjects/$2
                   else
                         echo "charmy create command requires a name for the project to create"
                   fi

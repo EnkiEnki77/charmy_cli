@@ -9,36 +9,36 @@ setup_project(){
                   if [ "$2" ]
                         then
                         echo "Initializing project: $2"
-                        mkdir ~/workspace/PycharmProjects/"$2"
-                        cd ~/workspace/PycharmProjects/"$2" || exit
-                        python3 -m venv .venv
-                        touch main.py
-                        cat <<EOF > main.py
-def main():
-        print("Hello world!")
-
-
-if __name__ == "__main__":
-        main()
-EOF
-                        touch README.md
-                        touch .gitignore
-                        cat <<EOF > .gitignore
-.venv
-.idea
-.env
-__pycache__
-EOF
-#                        if [ "$3" ]
-#                              then
-#                              true
-                        git init
-                        git add .
-                        git commit -m 'first commit'
-                        git branch -M main
-                        curl -sS https://webi.sh/gh | sh
-#                              git remote add origin "$3"
-#                              git push -u origin main
+#                        mkdir ~/workspace/PycharmProjects/
+                        cd ~/workspace/PycharmProjects/ || exit
+                        printf "\n%s\n\n\ny\ny\npython\nn\ny\ny\n" "$2" | gh repo create "$2" --public
+#                        python3 -m venv .venv
+#                        touch main.py
+#                        cat <<EOF > main.py
+#def main():
+#        print("Hello world!")
+#
+#
+#if __name__ == "__main__":
+#        main()
+#EOF
+#                        touch README.md
+#                        touch .gitignore
+#                        cat <<EOF > .gitignore
+#.venv
+#.idea
+#.env
+#__pycache__
+#EOF
+##                        if [ "$3" ]
+##                              then
+##                              true
+#                        git init
+#                        git add .
+#                        git commit -m 'first commit'
+#                        git branch -M main
+#                        curl -sS https://webi.sh/gh | sh
+##
 #                        else
 #                              echo "charmy create command requires a github repo link to set as the projects remote repo"
 #                        fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+setup_project(){
+      echo $1 $2
+
+      if [ "$1" ]
+            then
+            if [ "$1" == "create" ];
+                  then
+                  if [ "$2" ]
+                        then
+                        echo "Initializing project: $2"
+                  else
+                        echo "charmy create command requires a name for the project to create"
+                  fi
+            fi
+      fi
+
+}
+
+setup_project "$1" "$2"

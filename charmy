@@ -12,6 +12,13 @@ setup_project(){
                         mkdir ~/workspace/PycharmProjects/$2
                         cd ~/workspace/PycharmProjects/$2 || exit
                         touch main.py
+                        cat <<-EOF > main.py
+Hi
+Im
+Here
+EOF
+
+
                   else
                         echo "charmy create command requires a name for the project to create"
                   fi
@@ -21,3 +28,5 @@ setup_project(){
 }
 
 setup_project "$1" "$2"
+
+

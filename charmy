@@ -36,10 +36,14 @@ setup_project(){
                           echo "source ./.venv/bin/activate" >> ~/.bashrc
                         fi
 
-#                       adding files to the project to configure the template
+#                       adding files and directories to the project to configure the template
                         touch main.py
                         touch README.md
                         touch .gitignore
+                        mkdir modules
+                        touch ./modules/__init__.py
+                        mkdir tests
+                        touch ./tests/__init__.py
 #                       writing to the main.py file to set it up
                         cat <<EOF > main.py
 def main():
@@ -135,6 +139,7 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 EOF
+
 #                       staging all the changes to git
                         git add .
 #                       committing the changes

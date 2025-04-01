@@ -1,26 +1,43 @@
 #!/bin/bash
+#Above is the shebang that defines the path to the interpreter that should be used when the file is executed.
+
 
 setup_project(){
 
+#     Checks if a first argument was passed to the cli when it was executed in the command line
       if [ "$1" ]
             then
+#           If it was, checks if said argument is the string create
             if [ "$1" == "create" ];
                   then
+#                 if it was, checks that a second argument was also passed
                   if [ "$2" ]
                         then
+#                       If it was, indicates to user project is being initialized
                         echo "Initializing project: $2"
-#                        mkdir ~/workspace/PycharmProjects/
+#                       Changes working directory to the location I store pycharm projects or exits if it doesnt exist
                         cd ~/workspace/PycharmProjects/ || exit
+#                       printf command is executed, formatting a string with the 2nd cli argument. printf's output is
+#                       piped into the gh repo create command's input. $2 is the name we're setting for the gh repo
+#                       being created. gh repo create outputs the url to the repo created on gh, it's saved in the
+#                       REMOTE variable.
                         REMOTE=$(printf "\n%s\n\n\ny\ny\npython\nn\ny\ny\n" "$2" | gh repo create "$2" --public)
+#                       The gh repo is cloned into my pycharm project directory. Cloning the project in works to create
+#                       an empty project, and automatically attaches the gh repo to it as a remote, so we dont have to
                         git clone "$REMOTE"
-
+#                       changes working directory to the project
                         cd ./"$2" || exit
-
-                        python3 -m venv .venv
+#                       Generates a virtual environment for the project.
+                        pip3 freeze > requirements.txt
+                        pipx install virtualenv
+                        virtualenv -p python3 .venv
+                        chmod -R 777 ./.venv/bin/
+                        source ./.venv/bin/activate
+#                       adding files to the project to configure the template
                         touch main.py
                         touch README.md
                         touch .gitignore
-
+#                       writing to the main file to set it up
                         cat <<EOF > main.py
 def main():
         print("Hello world!")
@@ -29,7 +46,7 @@ def main():
 if __name__ == "__main__":
         main()
 EOF
-
+#                       writing to the gitignore file to set it up with the stuff that should be ignored
                         cat <<EOF > .gitignore
 .venv/
 .idea/
@@ -114,16 +131,23 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 EOF
-
+#                       staging all the changes to git
                         git add .
+#                       committing the changes
                         git commit -m 'first commit'
+#                       renaming the default master branch to main to follow the github convention
                         git branch -M main
+#                       pushing the changes to the remote repository and setting it as an upstream branch so we can
+#                       just type git push in the future and not have to include origin main
                         git push -u origin main
 
-
+#                       prompting the user for input on whether the project should be opened after creation. Saveing
+#                       response in a variable
                         read -p "Open the project? (y/n): " confirm
+#                       checking if variable is yes
                         if [ "$confirm" == "y" ]
                               then
+#                             if it is then opening the project in Pycharm
                               pycharm64.exe ../"$2"
                         fi
                   else

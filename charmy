@@ -17,7 +17,7 @@ setup_project(){
                         echo "Initializing project: $2"
 #                       Changes working directory to the location I store pycharm projects or exits if it doesnt exist
                         cd ~/workspace/PycharmProjects/ || exit
-#                       printf command is executed, formatting a string with the 2nd cli argument. printf's output is
+#                       printf command is executed, formatting a string with the 2nd cli positional argument. printf's output is
 #                       piped into the gh repo create command's input. $2 is the name we're setting for the gh repo
 #                       being created. gh repo create outputs the url to the repo created on gh, it's saved in the
 #                       REMOTE variable.
@@ -32,12 +32,15 @@ setup_project(){
                         pipx install virtualenv
                         virtualenv -p python3 .venv
                         chmod -R 777 ./.venv/bin/
-                        source ./.venv/bin/activate
+                        if grep -q "source ./.venv/bin/activate" ~/.bashrc -ne 0; then
+                          echo "source ./.venv/bin/activate" >> ~/.bashrc
+                        fi
+
 #                       adding files to the project to configure the template
                         touch main.py
                         touch README.md
                         touch .gitignore
-#                       writing to the main file to set it up
+#                       writing to the main.py file to set it up
                         cat <<EOF > main.py
 def main():
         print("Hello world!")
@@ -46,7 +49,8 @@ def main():
 if __name__ == "__main__":
         main()
 EOF
-#                       writing to the gitignore file to set it up with the stuff that should be ignored
+#                       writing to the gitignore file to set it up with the stuff that should be ignored using the Jetbrains template
+#                       plus some personal stuff
                         cat <<EOF > .gitignore
 .venv/
 .idea/
@@ -141,7 +145,7 @@ EOF
 #                       just type git push in the future and not have to include origin main
                         git push -u origin main
 
-#                       prompting the user for input on whether the project should be opened after creation. Saveing
+#                       prompting the user for input on whether the project should be opened after creation. Saving
 #                       response in a variable
                         read -p "Open the project? (y/n): " confirm
 #                       checking if variable is yes

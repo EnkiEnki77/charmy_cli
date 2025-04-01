@@ -157,6 +157,14 @@ EOF
                   else
                         echo "charmy create command requires a name for the project to create"
                   fi
+            elif [ "$1" == "open"  ];
+                  then
+                  if [ "$2" ]
+                        then
+                        pycharm.exe "$2"
+                  else
+                        echo "charmy open command requires a name for the project to open"
+                  fi
             fi
       fi
 

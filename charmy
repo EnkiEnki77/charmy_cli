@@ -161,7 +161,7 @@ EOF
                   then
                   if [ "$2" ]
                         then
-                        pycharm.exe "$2"
+                        pycharm64.exe "$2"
                   else
                         echo "charmy open command requires a name for the project to open"
                   fi
